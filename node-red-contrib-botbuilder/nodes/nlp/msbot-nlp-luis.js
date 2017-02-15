@@ -10,10 +10,9 @@ let LUIS_URL = undefined;
 module.exports = function(RED) {
     const register = function(config) {
         RED.nodes.createNode(this, config);
-        var node    = this;
-        LUIS_URL = "https://api.projectoxford.ai/luis/v1/application"
-                 + "?id="                + (config.modelId || CONFIG.microsoft.luis.modelId)
-                 + "&subscription-key="  + (config.APIKey  || CONFIG.microsoft.luis.APIKey);
+        LUIS_URL =                         (config.url || CONFIG.microsoft.luis.url)
+                 + "/"                   + (config.modelId || CONFIG.microsoft.luis.modelId)
+                 + "?subscription-key="  + (config.APIKey  || CONFIG.microsoft.luis.APIKey);
         this.on('input', (data)  => { input(node, data, config) });
     }
     RED.nodes.registerType("luis", register, {});
